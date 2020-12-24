@@ -6,11 +6,15 @@ import chess_board as cb
 import pieces as p
 pygame.init()
 
-screenHeight = 800
-screenWidth = 800
+# Constants
+BOARD_SIDE = 800
+NUM_SQUARES = 8
+SQUARE_SIZE = BOARD_SIDE / NUM_SQUARES
+LIGHT_BROWN = (185, 156, 107)
+DARK_BROWN = (101, 67, 33)
 
 # Set up the drawing window
-screen = pygame.display.set_mode([screenHeight, screenWidth])
+screen = pygame.display.set_mode([BOARD_SIDE, BOARD_SIDE])
 
 height = 250
 width = 250
@@ -20,13 +24,13 @@ def drawBoard():
   for x in range(0,8):
     for y in range(0,8):
       if (x+y)%2 == 1:
-        pygame.draw.rect(screen, (185,156,107), (screenWidth/8*x, screenHeight/8*y, screenWidth/8, screenHeight/8))
+        pygame.draw.rect(screen, LIGHT_BROWN, (SQUARE_SIZE*x, SQUARE_SIZE*y, SQUARE_SIZE, SQUARE_SIZE))
 
 def drawPieces(gameBoard):
   for x in range(len(gameBoard.board)):
     for y in range(len(gameBoard.board[x])):
       if(gameBoard.board[x][y] != '.'):
-        screen.blit(gameBoard.board[x][y].image, (y*100, x*100))
+        screen.blit(gameBoard.board[x][y].image, (y*SQUARE_SIZE, x*SQUARE_SIZE))
 
 # Run until the user asks to quit
 running = True
@@ -40,7 +44,7 @@ while running:
             running = False
 
     # Fill the background with dark brown
-    screen.fill((101,67,33))
+    screen.fill(DARK_BROWN)
     
     drawBoard()
     drawPieces(gameBoard)
