@@ -3,10 +3,11 @@
 # Import and initialize the pygame library
 import pygame
 import chess_board as cb
+import pieces as p
 pygame.init()
 
-screenHeight = 640
-screenWidth = 640
+screenHeight = 800
+screenWidth = 800
 
 # Set up the drawing window
 screen = pygame.display.set_mode([screenHeight, screenWidth])
@@ -21,16 +22,11 @@ def drawBoard():
       if (x+y)%2 == 1:
         pygame.draw.rect(screen, (185,156,107), (screenWidth/8*x, screenHeight/8*y, screenWidth/8, screenHeight/8))
 
-def drawPieces():
-  # draw circles for the pieces for now
-  for x in range(1,9):
-    for y in [1,2,7,8]:
-      colour = (255,0,0)
-      if(y==1 or y==8):
-        colour = (0,255,0)
-
-      pygame.draw.circle(screen, colour, (int(screenWidth/8*(x-0.5)), int(screenHeight/8*(y-0.5))), 30)
-
+def drawPieces(gameBoard):
+  for x in range(len(gameBoard.board)):
+    for y in range(len(gameBoard.board[x])):
+      if(gameBoard.board[x][y] != '.'):
+        screen.blit(gameBoard.board[x][y].image, (y*100, x*100))
 
 # Run until the user asks to quit
 running = True
@@ -47,7 +43,7 @@ while running:
     screen.fill((101,67,33))
     
     drawBoard()
-    drawPieces()
+    drawPieces(gameBoard)
 
     # Draw a solid blue circle in the center
     #pygame.draw.circle(screen, (0, 0, 255), (width, height), 75)
