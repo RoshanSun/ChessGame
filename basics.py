@@ -12,6 +12,7 @@ NUM_SQUARES = 8
 SQUARE_SIZE = BOARD_SIDE / NUM_SQUARES
 LIGHT_BROWN = (185, 156, 107)
 DARK_BROWN = (101, 67, 33)
+RED = (255, 0, 0)
 
 # Set up the drawing window
 screen = pygame.display.set_mode([BOARD_SIDE, BOARD_SIDE])
@@ -32,11 +33,16 @@ def drawPieces(gameBoard):
       if(gameBoard.board[x][y] != '.'):
         screen.blit(gameBoard.board[x][y].image, (y*SQUARE_SIZE, x*SQUARE_SIZE))
 
+def drawPossibleMoves(mouseX, mouseY):
+  pass
+
 # Run until the user asks to quit
 running = True
+mouseX = mouseY = boardX = boardY = -1
+
 while running:
     gameBoard = cb.ChessBoard()
-    gameBoard.displayBoard()
+    #gameBoard.displayBoard()
 
     # Did the user click the window close button?
     for event in pygame.event.get():
@@ -52,9 +58,17 @@ while running:
     # Draw a solid blue circle in the center
     #pygame.draw.circle(screen, (0, 0, 255), (width, height), 75)
 
-    # for event in pygame.event.get():
+    for event in pygame.event.get():
+      if event.type == pygame.MOUSEBUTTONDOWN:
+        mouseX, mouseY = pygame.mouse.get_pos()
+        boardX = int(mouseX/SQUARE_SIZE)
+        boardY = int(mouseY/SQUARE_SIZE)
+    
+    # draw the square being highlighted
+    if (mouseX != -1 and mouseY != -1 and gameBoard.board[boardY][boardX] != '.'):
+      pygame.draw.rect(screen, RED, (boardX*SQUARE_SIZE, boardY*SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE), 2)
+      print(gameBoard.board[boardY][boardX])
 
-    #   if event.type == pygame.KEYDOWN:
     #     if event.key == pygame.K_LEFT:
     #       width -= 1
     #     if event.key == pygame.K_RIGHT:

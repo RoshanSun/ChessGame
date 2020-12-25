@@ -45,3 +45,4 @@ class ChessBoard:
 if __name__ == '__main__':
   gameBoard = ChessBoard()
   gameBoard.displayBoard()
+  print(type(gameBoard.board[7][7]))
