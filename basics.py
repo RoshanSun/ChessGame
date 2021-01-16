@@ -75,20 +75,23 @@ def findMoves(mouseX, mouseY):
       if mouseX+1 <= 7 and gameBoard.board[mouseY+1][mouseX+1] != '.' and gameBoard.board[mouseY+1][mouseX-1].team == enemyTeam:
         moveList.append((mouseY+1, mouseX+1))
   elif currentPiece.symbol == 'Kn':
-    # POSSIBLE KNIGHT MOVES
-    # Y - 2, X + 1
-    # Y - 2, X - 1
-    # Y + 2, X + 1
-    # Y + 2, X - 1
-    # Y + 1, X - 2
-    # Y - 1, X - 2
-    # Y + 1, X + 2
-    # Y - 1, X + 2
-
-    if currentPiece.team == 'W':
-      pass
-    elif currentPiece == 'B':
-      pass
+    # take piece moves
+    if mouseY-2 >= 0 and mouseX-1 >= 0 and (gameBoard.board[mouseY-2][mouseX-1] == '.' or (gameBoard.board[mouseY-2][mouseX-1] != '.' and gameBoard.board[mouseY-2][mouseX-1].team == enemyTeam)):
+      moveList.append((mouseY-2, mouseX-1))
+    if mouseY-2 >= 0 and mouseX+1 <= 7 and (gameBoard.board[mouseY-2][mouseX+1] == '.' or (gameBoard.board[mouseY-2][mouseX+1] != '.' and gameBoard.board[mouseY-2][mouseX+1].team == enemyTeam)):
+      moveList.append((mouseY-2, mouseX+1))
+    if mouseY+2 <= 7 and mouseX-1 >= 0 and (gameBoard.board[mouseY+2][mouseX-1] == '.' or (gameBoard.board[mouseY+2][mouseX-1] != '.' and gameBoard.board[mouseY+2][mouseX-1].team == enemyTeam)):
+      moveList.append((mouseY+2, mouseX-1))
+    if mouseY+2 <= 7 and mouseX+1 <= 7 and (gameBoard.board[mouseY+2][mouseX+1] == '.' or (gameBoard.board[mouseY+2][mouseX+1] != '.' and gameBoard.board[mouseY+2][mouseX+1].team == enemyTeam)):
+      moveList.append((mouseY+2, mouseX+1))
+    if mouseY-1 >= 0 and mouseX-2 >= 0 and (gameBoard.board[mouseY-1][mouseX-2] == '.' or (gameBoard.board[mouseY-1][mouseX-2] != '.' and gameBoard.board[mouseY-1][mouseX-2].team == enemyTeam)):
+      moveList.append((mouseY-1, mouseX-2))
+    if mouseY+1 <= 7 and mouseX-2 >= 0 and (gameBoard.board[mouseY+1][mouseX-2] == '.' or (gameBoard.board[mouseY+1][mouseX-2] != '.' and gameBoard.board[mouseY+1][mouseX-2].team == enemyTeam)):
+      moveList.append((mouseY+1, mouseX-2))
+    if mouseY-1 >= 0 and mouseX+2 <= 7 and (gameBoard.board[mouseY-1][mouseX+2] == '.' or (gameBoard.board[mouseY-1][mouseX+2] != '.' and gameBoard.board[mouseY-1][mouseX+2].team == enemyTeam)):
+      moveList.append((mouseY-1, mouseX+2))
+    if mouseY+1 <= 7 and mouseX+2 <= 7 and (gameBoard.board[mouseY+1][mouseX+2] == '.' or (gameBoard.board[mouseY+1][mouseX+2] != '.' and gameBoard.board[mouseY+1][mouseX+2].team == enemyTeam)):
+      moveList.append((mouseY+1, mouseX+2))
   elif currentPiece.symbol == 'B':
     if currentPiece.team == 'W':
       pass
