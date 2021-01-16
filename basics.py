@@ -13,6 +13,7 @@ SQUARE_SIZE = BOARD_SIDE / NUM_SQUARES
 LIGHT_BROWN = (185, 156, 107)
 DARK_BROWN = (101, 67, 33)
 RED = (255, 0, 0)
+BLUE = (0, 0, 255)
 
 # Set up the drawing window
 screen = pygame.display.set_mode([BOARD_SIDE, BOARD_SIDE])
@@ -42,12 +43,13 @@ def highlightSelectedPiece(mouseX, mouseY):
 def findMoves(mouseX, mouseY):
   moveList = []
   currentPiece = gameBoard.board[mouseY][mouseX]
+  if currentPiece == '.':
+    return []
+
   if currentPiece.team == 'W':
     enemyTeam = 'B'
   else:
     enemyTeam = 'W'
-  if currentPiece == '.':
-    return []
 
   # moves for pawns
   if currentPiece.symbol == 'P':
@@ -75,7 +77,6 @@ def findMoves(mouseX, mouseY):
       if mouseX+1 <= 7 and gameBoard.board[mouseY+1][mouseX+1] != '.' and gameBoard.board[mouseY+1][mouseX-1].team == enemyTeam:
         moveList.append((mouseY+1, mouseX+1))
   elif currentPiece.symbol == 'Kn':
-    # take piece moves
     if mouseY-2 >= 0 and mouseX-1 >= 0 and (gameBoard.board[mouseY-2][mouseX-1] == '.' or (gameBoard.board[mouseY-2][mouseX-1] != '.' and gameBoard.board[mouseY-2][mouseX-1].team == enemyTeam)):
       moveList.append((mouseY-2, mouseX-1))
     if mouseY-2 >= 0 and mouseX+1 <= 7 and (gameBoard.board[mouseY-2][mouseX+1] == '.' or (gameBoard.board[mouseY-2][mouseX+1] != '.' and gameBoard.board[mouseY-2][mouseX+1].team == enemyTeam)):
@@ -93,10 +94,58 @@ def findMoves(mouseX, mouseY):
     if mouseY+1 <= 7 and mouseX+2 <= 7 and (gameBoard.board[mouseY+1][mouseX+2] == '.' or (gameBoard.board[mouseY+1][mouseX+2] != '.' and gameBoard.board[mouseY+1][mouseX+2].team == enemyTeam)):
       moveList.append((mouseY+1, mouseX+2))
   elif currentPiece.symbol == 'B':
-    if currentPiece.team == 'W':
-      pass
-    elif currentPiece == 'B':
-      pass
+    # up to the left direction
+    for i in range(1, 8):
+      newY = mouseY - i
+      newX = mouseX - i
+      if newY < 0 or newX < 0:
+        break
+      elif newY >= 0 and newX >= 0:
+        if gameBoard.board[newY][newX] == '.':
+          moveList.append((newY, newX))
+        elif gameBoard.board[newY][newX] != '.':
+          if gameBoard.board[newY][newX].team == enemyTeam:
+            moveList.append((newY, newX))
+          break
+    # up to the right
+    for i in range(1, 8):
+      newY = mouseY - i
+      newX = mouseX + i
+      if newY < 0 or newX < 0:
+        break
+      elif newY >= 0 and newX >= 0:
+        if gameBoard.board[newY][newX] == '.':
+          moveList.append((newY, newX))
+        elif gameBoard.board[newY][newX] != '.':
+          if gameBoard.board[newY][newX].team == enemyTeam:
+            moveList.append((newY, newX))
+          break
+    # down to the left
+    for i in range(1, 8):
+      newY = mouseY + i
+      newX = mouseX - i
+      if newY < 0 or newX < 0:
+        break
+      elif newY >= 0 and newX >= 0:
+        if gameBoard.board[newY][newX] == '.':
+          moveList.append((newY, newX))
+        elif gameBoard.board[newY][newX] != '.':
+          if gameBoard.board[newY][newX].team == enemyTeam:
+            moveList.append((newY, newX))
+          break
+    # down to the right
+    for i in range(1, 8):
+      newY = mouseY + i
+      newX = mouseX + i
+      if newY < 0 or newX < 0:
+        break
+      elif newY >= 0 and newX >= 0:
+        if gameBoard.board[newY][newX] == '.':
+          moveList.append((newY, newX))
+        elif gameBoard.board[newY][newX] != '.':
+          if gameBoard.board[newY][newX].team == enemyTeam:
+            moveList.append((newY, newX))
+          break
   elif currentPiece.symbol == 'R':
     if currentPiece.team == 'W':
       pass
@@ -115,6 +164,10 @@ def findMoves(mouseX, mouseY):
   
   return moveList
 
+def drawPossibleMoves(moveList):
+  for (moveX, moveY) in moveList:
+    pygame.draw.circle(screen, BLUE, (int(moveY*SQUARE_SIZE + SQUARE_SIZE/2), int(moveX*SQUARE_SIZE + SQUARE_SIZE/2)), 5)
+ 
 # Run until the user asks to quit
 running = True
 mouseX = mouseY = boardX = boardY = -1
@@ -146,7 +199,8 @@ while running:
     highlightSelectedPiece(boardX, boardY)
     moves = findMoves(boardX, boardY)
     if moves != []:
-      print(moves)
+      #print(moves)
+      drawPossibleMoves(moves)
 
     #     if event.key == pygame.K_LEFT:
     #       width -= 1
