@@ -33,8 +33,84 @@ def drawPieces(gameBoard):
       if(gameBoard.board[x][y] != '.'):
         screen.blit(gameBoard.board[x][y].image, (y*SQUARE_SIZE, x*SQUARE_SIZE))
 
-def drawPossibleMoves(mouseX, mouseY):
-  pass
+def highlightSelectedPiece(mouseX, mouseY):
+  # draw the square being highlighted
+  if (mouseX != -1 and mouseY != -1 and gameBoard.board[mouseY][mouseX] != '.'):
+    pygame.draw.rect(screen, RED, (mouseX*SQUARE_SIZE, mouseY*SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE), 2)
+    #print(gameBoard.board[mouseY][mouseX].xPos, gameBoard.board[mouseY][mouseX].yPos)
+
+def findMoves(mouseX, mouseY):
+  moveList = []
+  currentPiece = gameBoard.board[mouseY][mouseX]
+  if currentPiece.team == 'W':
+    enemyTeam = 'B'
+  else:
+    enemyTeam = 'W'
+  if currentPiece == '.':
+    return []
+
+  # moves for pawns
+  if currentPiece.symbol == 'P':
+    if currentPiece.team == 'W':
+      # not blocked infront
+      if gameBoard.board[mouseY-1][mouseX] == '.':
+        moveList.append((mouseY-1, mouseX))
+        # starting pawn
+        if currentPiece.xPos == 6 and gameBoard.board[mouseY-2][mouseX] == '.':
+          moveList.append((mouseY-2, mouseX))
+      # take piece moves
+      if mouseX-1 >= 0 and gameBoard.board[mouseY-1][mouseX-1] != '.' and gameBoard.board[mouseY+1][mouseX-1].team == enemyTeam:
+        moveList.append((mouseY-1, mouseX-1))
+      if mouseX+1 <= 7 and gameBoard.board[mouseY-1][mouseX+1] != '.' and gameBoard.board[mouseY+1][mouseX-1].team == enemyTeam:
+        moveList.append((mouseY-1, mouseX+1))
+    elif currentPiece.team == 'B':
+      if gameBoard.board[mouseY+1][mouseX] == '.':
+        moveList.append((mouseY+1, mouseX))
+        # starting pawn
+        if currentPiece.xPos == 1 and gameBoard.board[mouseY+2][mouseX] == '.':
+          moveList.append((mouseY+2, mouseX))
+      # take piece moves
+      if mouseX-1 >= 0 and gameBoard.board[mouseY+1][mouseX-1] != '.' and gameBoard.board[mouseY+1][mouseX-1].team == enemyTeam:
+        moveList.append((mouseY+1, mouseX-1))
+      if mouseX+1 <= 7 and gameBoard.board[mouseY+1][mouseX+1] != '.' and gameBoard.board[mouseY+1][mouseX-1].team == enemyTeam:
+        moveList.append((mouseY+1, mouseX+1))
+  elif currentPiece.symbol == 'Kn':
+    # POSSIBLE KNIGHT MOVES
+    # Y - 2, X + 1
+    # Y - 2, X - 1
+    # Y + 2, X + 1
+    # Y + 2, X - 1
+    # Y + 1, X - 2
+    # Y - 1, X - 2
+    # Y + 1, X + 2
+    # Y - 1, X + 2
+
+    if currentPiece.team == 'W':
+      pass
+    elif currentPiece == 'B':
+      pass
+  elif currentPiece.symbol == 'B':
+    if currentPiece.team == 'W':
+      pass
+    elif currentPiece == 'B':
+      pass
+  elif currentPiece.symbol == 'R':
+    if currentPiece.team == 'W':
+      pass
+    elif currentPiece == 'B':
+      pass
+  elif currentPiece.symbol == 'Q':
+    if currentPiece.team == 'W':
+      pass
+    elif currentPiece == 'B':
+      pass
+  elif currentPiece.symbol == 'K':
+    if currentPiece.team == 'W':
+      pass
+    elif currentPiece == 'B':
+      pass
+  
+  return moveList
 
 # Run until the user asks to quit
 running = True
@@ -63,11 +139,11 @@ while running:
         mouseX, mouseY = pygame.mouse.get_pos()
         boardX = int(mouseX/SQUARE_SIZE)
         boardY = int(mouseY/SQUARE_SIZE)
-    
-    # draw the square being highlighted
-    if (mouseX != -1 and mouseY != -1 and gameBoard.board[boardY][boardX] != '.'):
-      pygame.draw.rect(screen, RED, (boardX*SQUARE_SIZE, boardY*SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE), 2)
-      print(gameBoard.board[boardY][boardX])
+
+    highlightSelectedPiece(boardX, boardY)
+    moves = findMoves(boardX, boardY)
+    if moves != []:
+      print(moves)
 
     #     if event.key == pygame.K_LEFT:
     #       width -= 1

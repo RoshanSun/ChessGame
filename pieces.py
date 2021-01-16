@@ -16,61 +16,55 @@ class Piece(pygame.sprite.Sprite):
 class Pawn(Piece):
   def __init__(self, x, y, team):
     Piece.__init__(self, x , y, team)
+    self.symbol = 'P'
     if self.team == 'W':
-      self.symbol = 'WP'
       self.image = pygame.image.load('pieceSprites/whitePawn.png')
     else:
-      self.symbol = 'BP'
       self.image = pygame.image.load('pieceSprites/blackPawn.png')
 
 class Knight(Piece):
   def __init__(self, x, y, team):
     Piece.__init__(self, x , y, team)
+    self.symbol = 'Kn'
     if self.team == 'W':
-      self.symbol = 'WKn'
       self.image = pygame.image.load('pieceSprites/whiteKnight.png')
     else:
-      self.symbol = 'BKn'
       self.image = pygame.image.load('pieceSprites/blackKnight.png')
 
 class Bishop(Piece):
   def __init__(self, x, y, team):
     Piece.__init__(self, x , y, team)
+    self.symbol = 'B'
     if self.team == 'W':
-      self.symbol = 'WB'
       self.image = pygame.image.load('pieceSprites/whiteBishop.png')
     else:
-      self.symbol = 'BB'
       self.image = pygame.image.load('pieceSprites/blackBishop.png')
 
 class Rook(Piece):
   def __init__(self, x, y, team):
     Piece.__init__(self, x , y, team)
+    self.symbol = 'R'
     if self.team == 'W':
-      self.symbol = 'WR'
       self.image = pygame.image.load('pieceSprites/whiteRook.png')
     else:
-      self.symbol = 'BR'
       self.image = pygame.image.load('pieceSprites/blackRook.png')
 
 class Queen(Piece):
   def __init__(self, x, y, team):
     Piece.__init__(self, x , y, team)
+    self.symbol = 'Q'
     if self.team == 'W':
-      self.symbol = 'WQ'
       self.image = pygame.image.load('pieceSprites/whiteQueen.png')
     else:
-      self.symbol = 'BQ'
       self.image = pygame.image.load('pieceSprites/blackQueen.png')
 
 class King(Piece):
   def __init__(self, x, y, team):
     Piece.__init__(self, x , y, team)
+    self.symbol = 'K'
     if self.team == 'W':
-      self.symbol = 'WK'
       self.image = pygame.image.load('pieceSprites/whiteKing.png')
     else:
-      self.symbol = 'BK'
       self.image = pygame.image.load('pieceSprites/blackKing.png')
 
 if __name__ == '__main__':
