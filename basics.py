@@ -111,9 +111,9 @@ def findMoves(mouseX, mouseY):
     for i in range(1, 8):
       newY = mouseY - i
       newX = mouseX + i
-      if newY < 0 or newX < 0:
+      if newY < 0 or newX > 7:
         break
-      elif newY >= 0 and newX >= 0:
+      elif newY >= 0 and newX <= 7:
         if gameBoard.board[newY][newX] == '.':
           moveList.append((newY, newX))
         elif gameBoard.board[newY][newX] != '.':
@@ -124,9 +124,9 @@ def findMoves(mouseX, mouseY):
     for i in range(1, 8):
       newY = mouseY + i
       newX = mouseX - i
-      if newY < 0 or newX < 0:
+      if newY > 7 or newX < 0:
         break
-      elif newY >= 0 and newX >= 0:
+      elif newY <= 7 and newX >= 0:
         if gameBoard.board[newY][newX] == '.':
           moveList.append((newY, newX))
         elif gameBoard.board[newY][newX] != '.':
@@ -137,6 +137,73 @@ def findMoves(mouseX, mouseY):
     for i in range(1, 8):
       newY = mouseY + i
       newX = mouseX + i
+      if newY > 7 or newX > 7:
+        break
+      elif newY <= 7 and newX <= 7:
+        if gameBoard.board[newY][newX] == '.':
+          moveList.append((newY, newX))
+        elif gameBoard.board[newY][newX] != '.':
+          if gameBoard.board[newY][newX].team == enemyTeam:
+            moveList.append((newY, newX))
+          break
+  elif currentPiece.symbol == 'R':
+    # up direction
+    for i in range(1, 8):
+      newY = mouseY - i
+      newX = mouseX
+      if newY < 0:
+        break
+      elif newY >= 0:
+        if gameBoard.board[newY][newX] == '.':
+          moveList.append((newY, newX))
+        elif gameBoard.board[newY][newX] != '.':
+          if gameBoard.board[newY][newX].team == enemyTeam:
+            moveList.append((newY, newX))
+          break
+    # down direction
+    for i in range(1, 8):
+      newY = mouseY + i
+      newX = mouseX
+      if newY > 7:
+        break
+      elif newY <= 7:
+        if gameBoard.board[newY][newX] == '.':
+          moveList.append((newY, newX))
+        elif gameBoard.board[newY][newX] != '.':
+          if gameBoard.board[newY][newX].team == enemyTeam:
+            moveList.append((newY, newX))
+          break
+    # left direction
+    for i in range(1, 8):
+      newY = mouseY
+      newX = mouseX - i
+      if newX < 0:
+        break
+      elif newX >= 0:
+        if gameBoard.board[newY][newX] == '.':
+          moveList.append((newY, newX))
+        elif gameBoard.board[newY][newX] != '.':
+          if gameBoard.board[newY][newX].team == enemyTeam:
+            moveList.append((newY, newX))
+          break
+    # right direction
+    for i in range(1, 8):
+      newY = mouseY
+      newX = mouseX + i
+      if newX > 7:
+        break
+      elif newX <= 7:
+        if gameBoard.board[newY][newX] == '.':
+          moveList.append((newY, newX))
+        elif gameBoard.board[newY][newX] != '.':
+          if gameBoard.board[newY][newX].team == enemyTeam:
+            moveList.append((newY, newX))
+          break
+  elif currentPiece.symbol == 'Q':
+    # up to the left direction
+    for i in range(1, 8):
+      newY = mouseY - i
+      newX = mouseX - i
       if newY < 0 or newX < 0:
         break
       elif newY >= 0 and newX >= 0:
@@ -146,22 +213,122 @@ def findMoves(mouseX, mouseY):
           if gameBoard.board[newY][newX].team == enemyTeam:
             moveList.append((newY, newX))
           break
-  elif currentPiece.symbol == 'R':
-    if currentPiece.team == 'W':
-      pass
-    elif currentPiece == 'B':
-      pass
-  elif currentPiece.symbol == 'Q':
-    if currentPiece.team == 'W':
-      pass
-    elif currentPiece == 'B':
-      pass
+    # up to the right
+    for i in range(1, 8):
+      newY = mouseY - i
+      newX = mouseX + i
+      if newY < 0 or newX > 7:
+        break
+      elif newY >= 0 and newX <= 7:
+        if gameBoard.board[newY][newX] == '.':
+          moveList.append((newY, newX))
+        elif gameBoard.board[newY][newX] != '.':
+          if gameBoard.board[newY][newX].team == enemyTeam:
+            moveList.append((newY, newX))
+          break
+    # down to the left
+    for i in range(1, 8):
+      newY = mouseY + i
+      newX = mouseX - i
+      if newY > 7 or newX < 0:
+        break
+      elif newY <= 7 and newX >= 0:
+        if gameBoard.board[newY][newX] == '.':
+          moveList.append((newY, newX))
+        elif gameBoard.board[newY][newX] != '.':
+          if gameBoard.board[newY][newX].team == enemyTeam:
+            moveList.append((newY, newX))
+          break
+    # down to the right
+    for i in range(1, 8):
+      newY = mouseY + i
+      newX = mouseX + i
+      if newY > 7 or newX > 7:
+        break
+      elif newY <= 7 and newX <= 7:
+        if gameBoard.board[newY][newX] == '.':
+          moveList.append((newY, newX))
+        elif gameBoard.board[newY][newX] != '.':
+          if gameBoard.board[newY][newX].team == enemyTeam:
+            moveList.append((newY, newX))
+          break
+    # up direction
+    for i in range(1, 8):
+      newY = mouseY - i
+      newX = mouseX
+      if newY < 0:
+        break
+      elif newY >= 0:
+        if gameBoard.board[newY][newX] == '.':
+          moveList.append((newY, newX))
+        elif gameBoard.board[newY][newX] != '.':
+          if gameBoard.board[newY][newX].team == enemyTeam:
+            moveList.append((newY, newX))
+          break
+    # down direction
+    for i in range(1, 8):
+      newY = mouseY + i
+      newX = mouseX
+      if newY > 7:
+        break
+      elif newY <= 7:
+        if gameBoard.board[newY][newX] == '.':
+          moveList.append((newY, newX))
+        elif gameBoard.board[newY][newX] != '.':
+          if gameBoard.board[newY][newX].team == enemyTeam:
+            moveList.append((newY, newX))
+          break
+    # left direction
+    for i in range(1, 8):
+      newY = mouseY
+      newX = mouseX - i
+      if newX < 0:
+        break
+      elif newX >= 0:
+        if gameBoard.board[newY][newX] == '.':
+          moveList.append((newY, newX))
+        elif gameBoard.board[newY][newX] != '.':
+          if gameBoard.board[newY][newX].team == enemyTeam:
+            moveList.append((newY, newX))
+          break
+    # right direction
+    for i in range(1, 8):
+      newY = mouseY
+      newX = mouseX + i
+      if newX > 7:
+        break
+      elif newX <= 7:
+        if gameBoard.board[newY][newX] == '.':
+          moveList.append((newY, newX))
+        elif gameBoard.board[newY][newX] != '.':
+          if gameBoard.board[newY][newX].team == enemyTeam:
+            moveList.append((newY, newX))
+          break
   elif currentPiece.symbol == 'K':
-    if currentPiece.team == 'W':
-      pass
-    elif currentPiece == 'B':
-      pass
-  
+    # above
+    if mouseY-1 >= 0 and (gameBoard.board[mouseY-1][mouseX] == '.' or (gameBoard.board[mouseY-1][mouseX] != '.' and gameBoard.board[mouseY-1][mouseX].team == enemyTeam)):
+      moveList.append((mouseY-1, mouseX))
+    # above to the left
+    if mouseY-1 >= 0 and mouseX-1 >= 0 and (gameBoard.board[mouseY-1][mouseX-1] == '.' or (gameBoard.board[mouseY-1][mouseX-1] != '.' and gameBoard.board[mouseY-1][mouseX-1].team == enemyTeam)):
+      moveList.append((mouseY-1, mouseX-1))
+    # to the left
+    if mouseX-1 >= 0 and (gameBoard.board[mouseY][mouseX-1] == '.' or (gameBoard.board[mouseY][mouseX-1] != '.' and gameBoard.board[mouseY][mouseX-1].team == enemyTeam)):
+      moveList.append((mouseY, mouseX-1))
+    # below to the left
+    if mouseY+1 <= 7 and mouseX-1 >= 0 and (gameBoard.board[mouseY+1][mouseX-1] == '.' or (gameBoard.board[mouseY+1][mouseX-1] != '.' and gameBoard.board[mouseY+1][mouseX-1].team == enemyTeam)):
+      moveList.append((mouseY+1, mouseX-1))
+    # below
+    if mouseY+1 <= 7 and (gameBoard.board[mouseY+1][mouseX] == '.' or (gameBoard.board[mouseY+1][mouseX] != '.' and gameBoard.board[mouseY+1][mouseX].team == enemyTeam)):
+      moveList.append((mouseY+1, mouseX))
+    # below to the right
+    if mouseY+1 <= 7 and mouseX+1 <= 7 and (gameBoard.board[mouseY+1][mouseX+1] == '.' or (gameBoard.board[mouseY+1][mouseX+1] != '.' and gameBoard.board[mouseY+1][mouseX+1].team == enemyTeam)):
+      moveList.append((mouseY+1, mouseX+1))
+    # to the right
+    if mouseX+1 <= 7 and (gameBoard.board[mouseY][mouseX+1] == '.' or (gameBoard.board[mouseY][mouseX+1] != '.' and gameBoard.board[mouseY][mouseX+1].team == enemyTeam)):
+      moveList.append((mouseY, mouseX+1))
+    # above to the right
+    if mouseY-1 >= 0 and mouseX+1 <= 7 and (gameBoard.board[mouseY-1][mouseX+1] == '.' or (gameBoard.board[mouseY-1][mouseX+1] != '.' and gameBoard.board[mouseY-1][mouseX+1].team == enemyTeam)):
+      moveList.append((mouseY-1, mouseX+1))
   return moveList
 
 def drawPossibleMoves(moveList):
